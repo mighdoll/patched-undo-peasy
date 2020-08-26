@@ -41,7 +41,7 @@
     "url": "https://github.com/mighdoll/patched-undo-peasy.git"
   },
   "author": "lee <lee@underneath.ca>",
-  "homepage": "https://github.com/mighdoll/patched-undo-peasy",
+  "homepage": "https://github.com/mighdoll/patched-undo-peasy#readme",
   "license": "MIT",
   "keywords": [
     "react",
