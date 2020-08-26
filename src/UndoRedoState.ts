@@ -1,8 +1,7 @@
-import { Action, action } from "patched-peasy";
 import _ from "lodash";
-import { AnyObject, findGetters } from "./UndoUtils";
-import { removeDeep } from "./Utils";
+import { Action, action } from "patched-peasy";
 import { KeyPathFilter } from "./UndoRedoMiddleware";
+import { AnyObject, findGetters, removeDeep } from "./Utils";
 
 /**
  * WithUndo defines actions and history state to support Undo/Redo.

@@ -1,7 +1,7 @@
 import "chai/register-should";
 import _ from "lodash";
 import produce from "immer";
-import { clonePlain, filterCopy, findGetters } from "../UndoUtils";
+import { clonePlain, filterCopy, findGetters } from "../Utils";
 import { assert } from "chai";
 
 test("clonePlain", () => {
