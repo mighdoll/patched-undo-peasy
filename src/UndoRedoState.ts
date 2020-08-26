@@ -1,7 +1,7 @@
 import { Action, action } from "patched-peasy";
 import _ from "lodash";
-import { AnyObject, findGetters } from "../util/UndoUtils";
-import { removeDeep } from "../util/Utils";
+import { AnyObject, findGetters } from "./UndoUtils";
+import { removeDeep } from "./Utils";
 import { KeyPathFilter } from "./UndoRedoMiddleware";
 
 /**
