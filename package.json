@@ -33,5 +33,8 @@
   "description": "undo/redo for easy peasy",
   "repository": "github.com/mighdoll/patched-undo-peasy",
   "author": "lee <lee@underneath.ca>",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.13.1"
+  }
 }
