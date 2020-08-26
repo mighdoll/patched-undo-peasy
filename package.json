@@ -1,7 +1,7 @@
 {
   "name": "patched-undo-peasy",
   "version": "0.1.0",
-  "main": "src/index.tsx",
+  "main": "src/UndoRedoApi.ts",
   "dependencies": {
     "lodash": "^4.17.20",
     "patched-peasy": "^3.4.0-beta.0-patch1",
@@ -29,5 +29,9 @@
     "prettier": "^2.0.5",
     "ts-jest": "^26.2.0",
     "typescript": "^3.9.7"
-  }
+  },
+  "description": "undo/redo for easy peasy",
+  "repository": "github.com/mighdoll/patched-undo-peasy",
+  "author": "lee <lee@underneath.ca>",
+  "license": "MIT"
 }
