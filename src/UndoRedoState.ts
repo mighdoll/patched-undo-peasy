@@ -25,15 +25,6 @@ export function undoable<M extends {}>(model: M): ModelWithUndo<M> {
   return { ...model, undoHistory: undoModel, undoSave, undoUndo, undoRedo, undoReset };
 }
 
-interface UndoParams {
-  noSaveKeys: KeyPathFilter;
-  state: WithUndo;
-}
-
-interface WithUndoHistory {
-  undoHistory: UndoHistory;
-}
-
 export type ModelWithUndo<T> = {
   [P in keyof T]: T[P];
 } &
@@ -44,6 +35,21 @@ export interface UndoHistory {
   redo: {}[];
   current?: {};
   computeds?: string[][]; // paths of all computed properties in the model (not persisted in the history)
+}
+
+
+const undoModel: UndoHistory = { undo: [], redo: [] };
+
+/** Used internally, to pass params and raw state from middleware config to action reducers.
+ * Users of the actions do _not_ need to pass these parameters, they are attached by the middleware.
+ */
+interface UndoParams {
+  noSaveKeys: KeyPathFilter;
+  state: WithUndo;
+}
+
+interface WithUndoHistory {
+  undoHistory: UndoHistory;
 }
 
 const undoSave = action<WithUndo, UndoParams>((draftState, params) => {
@@ -58,10 +64,13 @@ const undoSave = action<WithUndo, UndoParams>((draftState, params) => {
 function saveCurrent(draftState: WithUndo, params: UndoParams) {
   const history = draftState.undoHistory;
   if (!history.computeds) {
+    // consider this initialization only happens once, is there an init hook we could use instead?
+    // LATER consider, what if the model is hot-reloaded?
     history.computeds = findGetters(params.state);
   }
   const computeds = history.computeds!;
 
+  // remove keys that shouldn't be saved in undo history (computeds, user filtered, and history state)
   const filteredCopy: AnyObject = removeDeep(draftState, (_value, key, path) => {
     const fullPath = path.concat([key]);
     const isComputed = !!computeds.find((computedPath) =>
@@ -69,8 +78,8 @@ function saveCurrent(draftState: WithUndo, params: UndoParams) {
     );
     return isComputed || params.noSaveKeys(key, path);
   });
-
   delete filteredCopy["undoHistory"];
+  
   draftState.undoHistory.current = filteredCopy;
 }
 
@@ -107,4 +116,3 @@ const undoRedo = action<WithUndo, UndoParams>((draftState) => {
   }
 });
 
-export const undoModel: UndoHistory = { undo: [], redo: [] };
