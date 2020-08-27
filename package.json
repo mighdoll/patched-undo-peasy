@@ -1,6 +1,6 @@
 {
   "name": "patched-undo-peasy",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "src/UndoRedoApi.ts",
   "dependencies": {
     "lodash": "^4.17.20",
